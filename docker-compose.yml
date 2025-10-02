@@ -5,9 +5,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: crypto-price-tracker
     ports:
       - "3000:80"
-    environment:
-      - NODE_ENV=production
+    env_file:
+      - .env
     restart: unless-stopped
-    container_name: crypto-tracker-app
+    networks:
+      - crypto-network
+
+networks:
+  crypto-network:
+    driver: bridge
