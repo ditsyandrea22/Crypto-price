@@ -1,30 +1,55 @@
-import { Bitcoin, RefreshCw } from 'lucide-react';
+import { RefreshCw, Clock } from 'lucide-react';
 
 interface HeaderProps {
   onRefresh: () => void;
   isRefreshing: boolean;
+  lastUpdated?: string;
 }
 
-export default function Header({ onRefresh, isRefreshing }: HeaderProps) {
+export function Header({ onRefresh, isRefreshing, lastUpdated }: HeaderProps) {
+  const formatTime = (dateString?: string) => {
+    if (!dateString) return 'Never';
+    return new Date(dateString).toLocaleTimeString();
+  };
+
   return (
-    <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-8 shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Bitcoin size={40} className="animate-pulse" />
+    <header className="bg-white shadow-sm border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-6">
+          <div className="flex items-center space-x-3">
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-2 rounded-lg">
+              <RefreshCw className="h-6 w-6 text-white" />
+            </div>
             <div>
-              <h1 className="text-3xl font-bold">Crypto Price Tracker</h1>
-              <p className="text-blue-100 text-sm mt-1">Real-time cryptocurrency prices</p>
+              <h1 className="text-2xl font-bold text-gray-900">Crypto Tracker</h1>
+              <p className="text-gray-500 text-sm">Live cryptocurrency prices & market data</p>
             </div>
           </div>
-          <button
-            onClick={onRefresh}
-            disabled={isRefreshing}
-            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <RefreshCw size={18} className={isRefreshing ? 'animate-spin' : ''} />
-            <span className="hidden sm:inline">Refresh</span>
-          </button>
+          
+          <div className="flex items-center space-x-4">
+            {lastUpdated && (
+              <div className="flex items-center space-x-2 text-sm text-gray-500">
+                <Clock size={16} />
+                <span>Updated: {formatTime(lastUpdated)}</span>
+              </div>
+            )}
+            
+            <button
+              onClick={onRefresh}
+              disabled={isRefreshing}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium transition-colors ${
+                isRefreshing
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400'
+              }`}
+            >
+              <RefreshCw
+                size={16}
+                className={isRefreshing ? 'animate-spin' : ''}
+              />
+              <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
+            </button>
+          </div>
         </div>
       </div>
     </header>

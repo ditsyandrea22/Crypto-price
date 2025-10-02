@@ -1,19 +1,13 @@
 version: '3.8'
 
 services:
-  crypto-tracker:
+  cryptotracker:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: crypto-price-tracker
     ports:
       - "3000:80"
-    env_file:
-      - .env
+    environment:
+      - NODE_ENV=production
     restart: unless-stopped
-    networks:
-      - crypto-network
-
-networks:
-  crypto-network:
-    driver: bridge
+    container_name: cryptotracker-app

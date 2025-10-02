@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "dev": "supabase functions serve fetch-crypto-prices --no-verify-jwt"
+  },
+  "imports": {
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.57.4"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "esnext"],
+    "types": ["https://deno.land/x/supabase_deno@0.3.1/mod.ts"]
+  }
+}

@@ -1,27 +1,32 @@
-export interface CryptoData {
+export interface Cryptocurrency {
   id: string;
-  symbol: string;
+  cmc_id: number;
   name: string;
-  image: string;
-  current_price: number;
-  market_cap: number;
-  market_cap_rank: number;
-  fully_diluted_valuation: number | null;
-  total_volume: number;
-  high_24h: number;
-  low_24h: number;
-  price_change_24h: number;
-  price_change_percentage_24h: number;
-  market_cap_change_24h: number;
-  market_cap_change_percentage_24h: number;
-  circulating_supply: number;
-  total_supply: number | null;
+  symbol: string;
+  slug: string;
+  logo_url: string;
   max_supply: number | null;
-  ath: number;
-  ath_change_percentage: number;
-  ath_date: string;
-  atl: number;
-  atl_change_percentage: number;
-  atl_date: string;
-  last_updated: string;
+  circulating_supply: number | null;
+  total_supply: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CryptoPrice {
+  id: string;
+  crypto_id: string;
+  price_usd: number;
+  market_cap: number;
+  volume_24h: number;
+  percent_change_1h: number;
+  percent_change_24h: number;
+  percent_change_7d: number;
+  percent_change_30d: number;
+  rank: number;
+  recorded_at: string;
+  created_at: string;
+}
+
+export interface CryptoWithPrice extends Cryptocurrency {
+  latest_price: CryptoPrice | null;
 }
