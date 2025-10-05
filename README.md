@@ -59,7 +59,7 @@ To populate the database with cryptocurrency prices:
 
 2. Call the edge function:
    ```bash
-   curl "https://nwqxgiyyptoepyqiokfw.supabase.co/functions/v1/fetch-crypto-prices?apiKey=YOUR_API_KEY&limit=100"
+   curl "https://supabase.co/functions/v1/fetch-crypto-prices?apiKey=YOUR_API_KEY&limit=100"
    ```
 
 3. The app will automatically refresh with the new data
