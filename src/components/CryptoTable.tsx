@@ -5,9 +5,11 @@ interface CryptoTableProps {
   cryptos: CryptoWithPrice[];
   onToggleFavorite?: (cryptoId: string) => void;
   favorites?: Set<string>;
+  searchTerm?: string;
+  highlight?: (text: string, term: string) => React.ReactNode;
 }
 
-export function CryptoTable({ cryptos, onToggleFavorite, favorites = new Set() }: CryptoTableProps) {
+export function CryptoTable({ cryptos, onToggleFavorite, favorites = new Set(), searchTerm = '', highlight }: CryptoTableProps) {
   const formatNumber = (num: number | null | undefined, decimals = 2): string => {
     if (num === null || num === undefined) return 'N/A';
     if (num >= 1e12) return `$${(num / 1e12).toFixed(decimals)}T`;
@@ -77,8 +79,12 @@ export function CryptoTable({ cryptos, onToggleFavorite, favorites = new Set() }
                   <div className="flex items-center gap-3">
                     <img src={crypto.logo_url} alt={crypto.name} className="w-8 h-8" />
                     <div>
-                      <div className="font-semibold text-gray-900">{crypto.name}</div>
-                      <div className="text-sm text-gray-500">{crypto.symbol}</div>
+                      <div className="font-semibold text-gray-900">
+                        {highlight ? highlight(crypto.name, searchTerm) : crypto.name}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {highlight ? highlight(crypto.symbol, searchTerm) : crypto.symbol}
+                      </div>
                     </div>
                   </div>
                 </td>

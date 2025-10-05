@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Coins, Activity, TrendingUp, DollarSign, Search } from 'lucide-react';
+import { Coins, Activity, TrendingUp, DollarSign, Search, X } from 'lucide-react';
 import { useCryptoData } from './hooks/useCryptoData';
 import { CryptoTable } from './components/CryptoTable';
 import { StatCard } from './components/StatCard';
@@ -25,6 +25,15 @@ function App() {
         crypto.symbol.toLowerCase().includes(term)
     );
   }, [cryptos, searchTerm]);
+
+  // Highlight function for search result
+  function highlight(text: string, term: string) {
+    if (!term) return text;
+    const regex = new RegExp(`(${term})`, 'ig');
+    return text.split(regex).map((part, i) =>
+      regex.test(part) ? <span key={i} className="bg-yellow-200 font-bold rounded px-1">{part}</span> : part
+    );
+  }
 
   const stats = useMemo(() => {
     const totalMarketCap = cryptos.reduce((sum, crypto) => {
@@ -118,20 +127,34 @@ function App() {
                   <h2 className="text-xl font-bold text-gray-900">
                     Cryptocurrency Prices by Market Cap
                   </h2>
-                  <div className="relative">
+                  <div className="relative w-full sm:w-64">
                     <Search
                       size={20}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
                     />
                     <input
                       type="text"
                       placeholder="Search cryptocurrencies..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full sm:w-64"
+                      className="pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-full"
                     />
+                    {searchTerm && (
+                      <button
+                        onClick={() => setSearchTerm('')}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        aria-label="Clear search"
+                      >
+                        <X size={18} />
+                      </button>
+                    )}
                   </div>
                 </div>
+                {searchTerm && (
+                  <div className="mt-2 text-sm text-gray-500">
+                    Showing {filteredCryptos.length} result{filteredCryptos.length !== 1 && 's'} for <span className="font-semibold">"{searchTerm}"</span>
+                  </div>
+                )}
               </div>
 
               {filteredCryptos.length === 0 ? (
@@ -145,7 +168,7 @@ function App() {
                   </p>
                 </div>
               ) : (
-                <CryptoTable cryptos={filteredCryptos} />
+                <CryptoTable cryptos={filteredCryptos} searchTerm={searchTerm} highlight={highlight} />
               )}
             </div>
 

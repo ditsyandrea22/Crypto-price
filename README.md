@@ -2,14 +2,17 @@
 
 A production-ready cryptocurrency price tracking application similar to CoinMarketCap, built with React, TypeScript, Tailwind CSS, and Supabase.
 
+
 ## Features
 
-- **Real-time cryptocurrency prices** - Track live prices from CoinMarketCap
-- **Market statistics** - View market cap, 24h volume, BTC dominance
-- **Price changes** - Monitor 1h, 24h, 7d, and 30d price changes
-- **Search functionality** - Easily find cryptocurrencies by name or symbol
-- **Responsive design** - Beautiful UI that works on all devices
-- **Real-time updates** - Automatic data refresh with Supabase subscriptions
+- **Real-time cryptocurrency prices** — Track live prices from CoinMarketCap
+- **Market statistics** — View market cap, 24h volume, BTC dominance
+- **Price changes** — Monitor 1h, 24h, 7d, and 30d price changes
+- **Search functionality** — Easily find cryptocurrencies by name or symbol
+- **Responsive design** — Beautiful UI that works on all devices
+- **Dark mode** — Toggle dark/light mode for comfortable viewing (🌙/☀️ button di pojok kanan atas)
+- **Modern UX** — Animasi halus, empty/error state, dan loading state yang menarik
+- **Real-time updates** — Automatic data refresh with Supabase subscriptions
 
 ## Tech Stack
 
@@ -28,6 +31,7 @@ A production-ready cryptocurrency price tracking application similar to CoinMark
 - CoinMarketCap API key (free tier available)
 - Supabase account
 
+
 ### Installation
 
 1. Clone the repository
@@ -35,13 +39,17 @@ A production-ready cryptocurrency price tracking application similar to CoinMark
    ```bash
    npm install
    ```
-
 3. Environment variables are already configured in `.env`
-
 4. Start the development server:
    ```bash
    npm run dev
    ```
+
+### UI/UX Tips
+
+- Untuk mengaktifkan **dark mode**, klik tombol 🌙/☀️ di pojok kanan atas header.
+- Aplikasi ini responsif dan nyaman digunakan di desktop maupun mobile.
+- Empty state, error state, dan loading state didesain agar informatif dan menarik.
 
 ### Fetching Cryptocurrency Data
 
